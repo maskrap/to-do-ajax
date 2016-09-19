@@ -28,7 +28,10 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.update(task_params)
       flash[:notice] = "Task successfully updated!"
-      redirect_to list_path(@task.list)
+      respond_to do |format|
+        format.html { redirect_to list_path(@task.list) }
+        format.js
+      end
     else
       render :edit
     end
